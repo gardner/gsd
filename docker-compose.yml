@@ -1,0 +1,53 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ./rabbitmq/data:/var/lib/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASS}
+    restart: unless-stopped
+
+  producer:
+    env_file:
+      - .env
+    build: ./producer
+    volumes:
+      - ./producer:/app
+    restart: unless-stopped
+
+  writer:
+    env_file:
+      - .env
+    build: ./producer
+    command: python3 /app/writer.py
+    volumes:
+      - ./producer:/app
+    restart: unless-stopped
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CF_TOKEN}
+    depends_on:
+      - rabbitmq
+
+  # worker:
+  #   build: ./worker
+  #   shm_size: '2gb'
+  #   entrypoint: ""
+  #   env_file:
+  #     - .env
+  #   volumes:
+  #     - ./worker/worker.py:/app/worker.py
+  #     - ~/.cache/huggingface:/root/.cache/huggingface
+  #   # restart: unless-stopped
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - driver: nvidia
+  #             capabilities: [gpu]
