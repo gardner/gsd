@@ -8,7 +8,7 @@ docker run -it --rm --shm-size=2g --gpus all gardner/gsd:latest --server https:/
 
 ## Introduction 📖
 
-GSD (GPU Swarm for Datasets) is a FOSS initiative designed to democratize the improvement of datasets for broader R&D. This project brings together volunteers who contribute their GPU time to enhance text datasets, making them more useful for the community at large. Inspired by the paper "Rephrasing the Web: A Recipe for Compute and Data-Efficient Language Modeling" by Maini et al. (January 29, 2024) [arxive](https://arxiv.org/abs/2401.16380), GSD is a community approach to processing and refining data efficiently and at scale.
+GSD (GPU Swarm for Datasets) is a FOSS initiative designed to democratize the improvement of datasets for broader R&D. This project brings together volunteers who contribute their GPU time to enhance text datasets, making them more useful for the community at large. Inspired by the paper "Rephrasing the Web: A Recipe for Compute and Data-Efficient Language Modeling" by Maini et al. (January 29, 2024) [paper](https://arxiv.org/abs/2401.16380), GSD is a community approach to processing and refining data efficiently and at scale.
 
 GSD is similar to a decentralized version of Facebook's [cc_net](https://github.com/facebookresearch/cc_net).
 
